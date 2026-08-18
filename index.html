@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Para você ❤️</title>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Tenho uma coisa pra te perguntar ❤️">
+<meta property="og:description" content="Abre aqui…">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body { height:100%; overflow:hidden; }
+  body {
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:radial-gradient(ellipse at 50% 20%, #4a0d1f 0%, #2b0713 45%, #14040a 100%);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+
+  .coracao { position:absolute; bottom:-40px; opacity:0; animation:subir linear forwards; pointer-events:none; z-index:0; }
+  @keyframes subir {
+    0%   { transform:translateY(0) scale(.6) rotate(0deg); opacity:0; }
+    12%  { opacity:.95; }
+    85%  { opacity:.7; }
+    100% { transform:translateY(-105vh) scale(1.15) rotate(24deg); opacity:0; }
+  }
+
+  .card {
+    position:relative; z-index:2; display:none;
+    width:min(90vw, 380px);
+    background:linear-gradient(165deg, #fff 0%, #fff3f7 100%);
+    border-radius:28px; padding:34px 26px 30px; text-align:center;
+    box-shadow:0 24px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.5) inset;
+  }
+  .card.ativo { display:block; animation:entrar .5s cubic-bezier(.2,.9,.3,1.2) both; }
+  @keyframes entrar { from { opacity:0; transform:translateY(24px) scale(.95); } to { opacity:1; transform:none; } }
+
+  .urso { font-size:70px; line-height:1; display:block; animation:pular .9s ease-in-out infinite; }
+  @keyframes pular { 0%,100% { transform:translateY(0) rotate(0); } 50% { transform:translateY(-14px) rotate(6deg); } }
+
+  h1 { font-size:20px; color:#3d1220; margin:16px 0 8px; font-weight:600; line-height:1.45; }
+  .sub { font-size:14px; color:#8b5a6b; margin-bottom:20px; line-height:1.5; }
+
+  .botoes { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .grade { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+  .grade button { font-size:30px; padding:14px 0; line-height:1; }
+  button {
+    font-family:inherit; font-size:15px; font-weight:700; border:0; border-radius:12px;
+    padding:12px 24px; cursor:pointer; color:#fff;
+    background:linear-gradient(160deg,#fb7185,#e11d48);
+    box-shadow:0 6px 16px rgba(225,29,72,.35); transition:transform .16s;
+  }
+  button:hover { transform:scale(1.06); }
+  button.calmo { background:linear-gradient(160deg,#a78bfa,#7c3aed); box-shadow:0 6px 16px rgba(124,58,237,.35); }
+  #sim { background:linear-gradient(160deg,#34d399,#059669); box-shadow:0 6px 18px rgba(5,150,105,.4); font-size:17px; padding:14px 34px; }
+  #nao { transition:top .18s ease, left .18s ease, transform .16s; font-size:17px; padding:14px 34px; }
+
+  input[type=range] { width:100%; margin:6px 0 4px; accent-color:#e11d48; }
+  .medida { font-size:26px; font-weight:800; color:#e11d48; min-height:34px; }
+
+  .passo { font-size:12px; color:#c98da0; margin-top:18px; letter-spacing:.5px; }
+
+  /* Reacao ocupa a tela inteira sozinha: junto da pergunta seguinte, vira resposta trocada. */
+  #reacao h1 { font-size:19px; color:#be123c; margin-bottom:0; }
+  #final h1 { font-size:24px; color:#be123c; }
+</style>
+</head>
+<body>
+
+<div class="card ativo" id="t1">
+  <span class="urso">👀</span>
+  <h1>Oi… você tá ocupada agora?</h1>
+  <p class="sub">É rapidinho. Acho.</p>
+  <div class="botoes">
+    <button data-vai="t2" data-emoji="😌" data-diz="Ótimo. Então senta que lá vem história.">Tô livre</button>
+    <button data-vai="t2" data-emoji="😏" data-diz="Ah, mas você já abriu. Agora vai até o fim.">Meio ocupada</button>
+  </div>
+  <p class="passo">1 de 5</p>
+</div>
+
+<div class="card" id="t2">
+  <span class="urso">🎁</span>
+  <h1>Escolhe uma coisa aí.</h1>
+  <p class="sub">Qualquer uma. Não tem resposta errada.<br>(tem sim, mas não te conto qual)</p>
+  <div class="grade">
+    <button class="calmo" data-vai="t3" data-emoji="🌙" data-diz="A lua. Combina com você: bonita e some quando eu quero olhar.">🌙</button>
+    <button class="calmo" data-vai="t3" data-emoji="🍓" data-diz="Morango. Doce, vermelhinho e some rápido. Igualzinho.">🍓</button>
+    <button class="calmo" data-vai="t3" data-emoji="🐶" data-diz="Cachorro! Resposta de quem tem bom coração. Anotado.">🐶</button>
+    <button class="calmo" data-vai="t3" data-emoji="🎸" data-diz="Guitarra. Eu não sei tocar, mas fingiria pra você.">🎸</button>
+    <button class="calmo" data-vai="t3" data-emoji="🌊" data-diz="O mar. Já tô planejando essa viagem, só pra constar.">🌊</button>
+    <button class="calmo" data-vai="t3" data-emoji="🍀" data-diz="Trevo de quatro folhas. Sorte é o que eu tive quando te conheci.">🍀</button>
+    <button class="calmo" data-vai="t3" data-emoji="🦋" data-diz="Borboleta. Que é exatamente o que dá no meu estômago.">🦋</button>
+    <button class="calmo" data-vai="t3" data-emoji="⭐" data-diz="Estrela. Óbvio. Você escolheria você mesma.">⭐</button>
+    <button class="calmo" data-vai="t3" data-emoji="🍫" data-diz="Chocolate. Sabia que ia ser esse. Sabia.">🍫</button>
+  </div>
+  <p class="passo">2 de 5</p>
+</div>
+
+<div class="card" id="t3">
+  <span class="urso">🎲</span>
+  <h1>Escolhe um número.</h1>
+  <p class="sub">Sem pensar muito. Confia.</p>
+  <div class="botoes">
+    <button data-vai="t4" data-emoji="🤨" data-diz="Número 1. Interessante. Não significa nada, mas interessante.">1</button>
+    <button data-vai="t4" data-emoji="✌️" data-diz="Dois! Coincidência: é quanta gente cabe nessa conversa.">2</button>
+    <button data-vai="t4" data-emoji="😅" data-diz="Três. Errado, mas tudo bem, eu te perdoo.">3</button>
+  </div>
+  <p class="passo">3 de 5</p>
+</div>
+
+<div class="card" id="t4">
+  <span class="urso" id="cara">😴</span>
+  <h1>Quanto você tá curiosa agora?</h1>
+  <p class="sub" id="frase">Arrasta pra ver.</p>
+  <div class="medida" id="medida">0%</div>
+  <input type="range" id="curiosa" min="0" max="100" value="0">
+  <div class="botoes" style="margin-top:16px">
+    <button id="segue" data-vai="t5" data-emoji="🫣" data-diz="Tá bom, tá bom. Chega de enrolação.">Vai logo!</button>
+  </div>
+  <p class="passo">4 de 5</p>
+</div>
+
+<div class="card" id="reacao">
+  <span class="urso" id="reacao-emoji">😌</span>
+  <h1 id="reacao-texto"></h1>
+</div>
+
+<div class="card" id="t5">
+  <span class="urso">🧸</span>
+  <h1>Você aceita ser minha namorada?</h1>
+  <p class="sub">Essa era a pergunta o tempo todo.</p>
+  <div class="botoes">
+    <button id="sim">SIM</button>
+    <button id="nao">NÃO</button>
+  </div>
+  <p class="passo">5 de 5</p>
+</div>
+
+<div class="card" id="final">
+  <span class="urso">🥰</span>
+  <h1>Eu sabia! ❤️</h1>
+  <p class="sub">Você acabou de fazer o meu dia inteiro.<br>E olha que nem começou direito.</p>
+</div>
+
+<script>
+(function () {
+  const EMOJIS = ['❤️', '💕', '💖', '💗', '🌹'];
+  const PAUSA_REACAO = 3000;
+
+  function chuva() {
+    const c = document.createElement('div');
+    c.className = 'coracao';
+    c.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+    c.style.left = Math.random() * 96 + 'vw';
+    c.style.fontSize = (16 + Math.random() * 22) + 'px';
+    c.style.animationDuration = (4.5 + Math.random() * 3.5) + 's';
+    document.body.appendChild(c);
+    setTimeout(function () { c.remove(); }, 8500);
+  }
+  setInterval(chuva, 240);
+
+  function rajada(n, passo) {
+    for (let i = 0; i < n; i++) setTimeout(chuva, i * passo);
+  }
+
+  function mostrar(id) {
+    document.querySelectorAll('.card').forEach(function (c) { c.classList.remove('ativo'); });
+    document.getElementById(id).classList.add('ativo');
+    rajada(14, 70);
+  }
+
+  const reacaoTexto = document.getElementById('reacao-texto');
+  const reacaoEmoji = document.getElementById('reacao-emoji');
+
+  document.querySelectorAll('button[data-vai]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      reacaoTexto.textContent = b.dataset.diz;
+      reacaoEmoji.textContent = b.dataset.emoji || '😌';
+      mostrar('reacao');
+      setTimeout(function () { mostrar(b.dataset.vai); }, PAUSA_REACAO);
+    });
+  });
+
+  // Faixa -> cara, frase e texto do botão. Sem isso o slider só mexia um número.
+  const FAIXAS = [
+    { ate:   0, cara: '😴', frase: 'Zero? Tá bom, eu mereço.',            botao: 'Vai logo!' },
+    { ate:  20, cara: '🙂', frase: 'Só isso? Arrasta mais.',              botao: 'Vai logo!' },
+    { ate:  40, cara: '👀', frase: 'Opa. Tá ficando interessada.',        botao: 'Vai logo!' },
+    { ate:  60, cara: '😯', frase: 'Agora sim. Continua.',                botao: 'Quero saber!' },
+    { ate:  80, cara: '😳', frase: 'Calma… quase lá.',                    botao: 'Quero saber!' },
+    { ate:  99, cara: '🤩', frase: 'ISSO. Vai até o fim.',                botao: 'FALA LOGO!' },
+    { ate: 100, cara: '😍', frase: 'Perfeito. Agora eu posso perguntar.', botao: 'FALA LOGO!' },
+  ];
+
+  const range = document.getElementById('curiosa');
+  const medida = document.getElementById('medida');
+  const cara = document.getElementById('cara');
+  const frase = document.getElementById('frase');
+  const segue = document.getElementById('segue');
+  let faixaAtual = null;
+
+  range.addEventListener('input', function () {
+    const v = Number(range.value);
+    medida.textContent = v >= 100 ? 'MUITO ∞' : v + '%';
+    medida.style.fontSize = (26 + v * 0.16) + 'px';
+
+    const f = FAIXAS.find(function (x) { return v <= x.ate; });
+    if (f !== faixaAtual) {
+      faixaAtual = f;
+      cara.textContent = f.cara;
+      frase.textContent = f.frase;
+      segue.textContent = f.botao;
+      // Reinicia a animação do emoji para dar o "pulo" na troca de cara.
+      cara.style.animation = 'none';
+      void cara.offsetWidth;
+      cara.style.animation = '';
+      rajada(3, 60);
+    }
+  });
+
+  const btnNao = document.getElementById('nao');
+  const btnSim = document.getElementById('sim');
+
+  // Card tem animação com transform, e isso faria o `fixed` se ancorar NELE em vez da tela:
+  // o botão saía da área visível e parecia sumir. Solto no body, o fixed volta a ser a tela.
+  let soltou = false;
+
+  function fugir() {
+    if (!soltou) { document.body.appendChild(btnNao); soltou = true; }
+    btnNao.style.position = 'fixed';
+    btnNao.style.zIndex = '99';
+    btnNao.style.margin = '0';
+
+    // No Chrome do celular innerHeight conta a área sob a barra: usar a viewport visível,
+    // senão o botão vai parar atrás dela e some de vez.
+    const vv = window.visualViewport;
+    const largura = vv ? vv.width : window.innerWidth;
+    const altura = vv ? vv.height : window.innerHeight;
+    const margem = 16;
+    const maxX = Math.max(margem, largura - btnNao.offsetWidth - margem);
+    const maxY = Math.max(margem, altura - btnNao.offsetHeight - margem);
+
+    btnNao.style.left = (margem + Math.random() * (maxX - margem)) + 'px';
+    btnNao.style.top = (margem + Math.random() * (maxY - margem)) + 'px';
+  }
+
+  // Girar a tela ou abrir o teclado muda a área visível: sem recolocar, o botão fica fora dela.
+  window.addEventListener('resize', function () { if (soltou) fugir(); });
+
+  btnNao.addEventListener('mouseover', fugir);
+  btnNao.addEventListener('click', function (e) { e.preventDefault(); fugir(); });
+  // Celular não tem hover: sem o touchstart o botão seria clicável de verdade.
+  btnNao.addEventListener('touchstart', function (e) { e.preventDefault(); fugir(); }, { passive: false });
+
+  btnSim.addEventListener('click', function () {
+    btnNao.style.display = 'none';
+    mostrar('final');
+    rajada(70, 55);
+  });
+})();
+</script>
+</body>
+</html>
